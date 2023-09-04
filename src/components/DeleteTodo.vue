@@ -1,5 +1,5 @@
 <template>
-  <button @click="onDelete" class="delete-todo">-</button>
+  <button @click="onDelete" class="delete-todo btn btn-sm btn-danger">刪除</button>
 </template>
 <script setup lang="ts">
 import { toRefs } from 'vue'
@@ -13,3 +13,8 @@ const onDelete = async () => {
   await deleteTodo(id.value)
 }
 </script>
+<style scoped>
+.btn {
+  width: 60px;
+}
+</style>

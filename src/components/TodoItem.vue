@@ -21,5 +21,7 @@ function updateStatus(value: TypeTodoStatus) {
 <style scoped>
 .todo-item {
   display: flex;
+  gap: 0.2rem;
+  align-items: center;
 }
 </style>

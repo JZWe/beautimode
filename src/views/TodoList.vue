@@ -30,6 +30,7 @@ onBeforeMount(async () => {
 .todolist {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 0.2rem;
+  gap: 0.5rem;
 }
 </style>
