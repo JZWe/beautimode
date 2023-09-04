@@ -1,11 +1,14 @@
 import { ref } from 'vue'
 
+export type TodoStatus = 'completed' | 'undone'
 export interface Todo {
   id: number
   title: string
+  status: TodoStatus
 }
 
 const todos = ref<Todo[]>([])
+
 let maxId = 200 // handle fake id with jsonplaceholder
 
 export function useTodos() {
@@ -16,7 +19,7 @@ export function useTodos() {
     })
 
     if (res.ok) {
-      todos.value.push({ id: ++maxId, title })
+      todos.value.push({ id: ++maxId, title, status: 'undone' })
     } else {
       throw new Error('Something error happens in API')
     }
@@ -28,7 +31,7 @@ export function useTodos() {
     if (res.ok) {
       const data = (await res.json()) as Todo[]
       todos.value.length = 0
-      data.forEach((item) => todos.value.push(item))
+      data.forEach((item) => todos.value.push({ ...item, status: 'undone' }))
     } else {
       throw new Error('Something error happens in API')
     }
