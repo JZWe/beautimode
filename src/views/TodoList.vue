@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <NewTodo />
-    <!-- <TodoTabs /> -->
     <div class="todolist">
-      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+      <TodoTabs />
+      <TodoItem v-for="todo in filteredTodos" :key="todo.id" :todo="todo" />
     </div>
   </div>
 </template>
@@ -11,10 +11,10 @@
 import { onBeforeMount } from 'vue'
 import { useTodos } from '../composables/useTodos'
 import TodoItem from '../components/TodoItem.vue'
-// import TodoTabs from '../components/TodoTabs.vue'
+import TodoTabs from '../components/TodoTabs.vue'
 import NewTodo from '../components/NewTodo.vue'
 
-const { todos, getTodos } = useTodos()
+const { filteredTodos, getTodos } = useTodos()
 
 onBeforeMount(async () => {
   await getTodos()
@@ -32,5 +32,6 @@ onBeforeMount(async () => {
   flex-direction: column;
   padding: 0.2rem;
   gap: 0.5rem;
+  min-width: 500px;
 }
 </style>

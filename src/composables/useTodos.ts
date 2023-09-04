@@ -1,6 +1,8 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export type TodoStatus = 'completed' | 'undone'
+export type TabStatus = 'all' | TodoStatus
+
 export interface Todo {
   id: number
   title: string
@@ -8,6 +10,7 @@ export interface Todo {
 }
 
 const todos = ref<Todo[]>([])
+const activeTab = ref<TabStatus>('all')
 
 let maxId = 200 // handle fake id with jsonplaceholder
 
@@ -49,5 +52,18 @@ export function useTodos() {
     }
   }
 
-  return { todos, addTodo, getTodos, deleteTodo }
+  function setActiveTab(tab: TabStatus) {
+    activeTab.value = tab
+  }
+
+  const filteredTodos = computed(() => {
+    if (activeTab.value === 'all') {
+      return todos.value
+    } else if (activeTab.value === 'completed') {
+      return todos.value.filter((todo) => todo.status === 'completed')
+    } else {
+      return todos.value.filter((todo) => todo.status === 'undone')
+    }
+  })
+  return { addTodo, getTodos, deleteTodo, activeTab, setActiveTab, filteredTodos }
 }
