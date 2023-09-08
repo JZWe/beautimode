@@ -3,7 +3,7 @@
 </template>
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { useTodos, type Todo } from '../composables/useTodos'
+import { useTodos, type Todo } from '@/composables/useTodos'
 
 const props = defineProps<Pick<Todo, 'id'>>()
 const { id } = toRefs(props)

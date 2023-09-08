@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useTodos, type TabStatus } from '../composables/useTodos'
+import { useTodos, type TabStatus } from '@/composables/useTodos'
 const { activeTab, setActiveTab } = useTodos()
 const statusTabs = ref(['all', 'completed', 'undone'])
 const onTabClick = (tab: string) => {

@@ -9,10 +9,10 @@
 </template>
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
-import { useTodos } from '../composables/useTodos'
-import TodoItem from '../components/TodoItem.vue'
-import TodoTabs from '../components/TodoTabs.vue'
-import NewTodo from '../components/NewTodo.vue'
+import { useTodos } from '@/composables/useTodos'
+import TodoItem from '@/components/todo/TodoItem.vue'
+import TodoTabs from '@/components/todo/TodoTabs.vue'
+import NewTodo from '@/components/todo/NewTodo.vue'
 
 const { filteredTodos, getTodos } = useTodos()
 

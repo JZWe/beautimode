@@ -19,7 +19,7 @@
 </template>
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useTodos } from '../composables/useTodos'
+import { useTodos } from '@/composables/useTodos'
 const { addTodo } = useTodos()
 const name = ref('')
 const isTouched = ref(false)
