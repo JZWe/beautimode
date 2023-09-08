@@ -1,6 +1,6 @@
 <template>
-  <input type="checkbox" class="toggle" :id="`toggle-${id}`" @click="onClick" />
-  <label :for="`toggle-${id}`"></label>
+  <input type="checkbox" class="toggle" :id="`toggle-${id}`" />
+  <label :for="`toggle-${id}`" @click="onClick"></label>
 </template>
 <script setup lang="ts">
 interface ToggleVal {
