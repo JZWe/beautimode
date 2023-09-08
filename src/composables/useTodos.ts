@@ -52,6 +52,21 @@ export function useTodos() {
     }
   }
 
+  async function updateTodo({ id, title }: { id: Todo['id']; title: Todo['title'] }) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: 'PUT'
+    })
+
+    if (res.ok) {
+      const matchedTodo = todos.value.find((todo) => todo.id === id)
+      if (matchedTodo) {
+        matchedTodo.title = title
+      }
+    } else {
+      alert(`There is no matched data in JSONplaceholder, please try another`)
+    }
+  }
+
   function setActiveTab(tab: TabStatus) {
     activeTab.value = tab
   }
@@ -65,5 +80,6 @@ export function useTodos() {
       return todos.value.filter((todo) => todo.status === 'undone')
     }
   })
-  return { addTodo, getTodos, deleteTodo, activeTab, setActiveTab, filteredTodos }
+
+  return { addTodo, getTodos, deleteTodo, updateTodo, activeTab, setActiveTab, filteredTodos }
 }
