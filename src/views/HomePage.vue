@@ -1,4 +1,4 @@
 <template>
-  <span>Home</span>
+  <div></div>
 </template>
 <script setup lang="ts"></script>
