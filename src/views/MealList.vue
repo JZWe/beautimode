@@ -8,17 +8,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MealItem from '@/components/meal/MealItem.vue'
-function createInitialMealData() {
-  return Array.from({ length: 48 }, () => 0).join('')
-}
+
 const initialMeals = {
-  week_day0: createInitialMealData(),
-  week_day1: createInitialMealData(),
-  week_day2: createInitialMealData(),
-  week_day3: createInitialMealData(),
-  week_day4: createInitialMealData(),
-  week_day5: createInitialMealData(),
-  week_day6: createInitialMealData()
+  week_day0: '000000000000000000000000000000000000000000000000',
+  week_day1: '111111111111111111111111111111111111111111111111',
+  week_day2: '000000111111000000000000000000000000000000000000',
+  week_day3: '000000000000111111000000000000000000000000000000',
+  week_day4: '000000000000000000000000111111111111000000000000',
+  week_day5: '000000000000000000000000000000000000111111111110',
+  week_day6: '111111111111111111111111111111111111111111111111'
 }
 const meals = ref(initialMeals)
 </script>
@@ -29,7 +27,7 @@ const meals = ref(initialMeals)
   align-items: center;
   justify-content: center;
 }
-.todolist {
+.meallist {
   display: flex;
   flex-direction: column;
   padding: 0.2rem;

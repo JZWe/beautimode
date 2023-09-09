@@ -19,7 +19,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useDropdown } from '@/composables/useDropdown'
 
 interface Option {
@@ -29,15 +29,18 @@ interface Option {
   disabled?: boolean
 }
 
+function getDropdownOptions(options: Option[]) {
+  return options.every((option) => option.selected == null)
+    ? options.map((option, index) => ({
+        ...option,
+        selected: index === 0
+      }))
+    : options
+}
 const props = defineProps<{ disabledOption?: string; options: Option[]; id: string }>()
 const { disabledOption, options = [], id } = props
 const { getDropdownState, openDropdown, closeDropdown } = useDropdown(id)
-const dropdownOptions = ref<Option[]>(
-  options.map((option, index) => ({
-    ...option,
-    selected: index === 0
-  }))
-)
+const dropdownOptions = ref<Option[]>(getDropdownOptions(options))
 const currentOption = ref<Option | null>(
   dropdownOptions.value.find((option) => option.selected) ?? null
 )
@@ -55,7 +58,10 @@ const toggleOptions = () => {
   }
 }
 const setSelectedOption = (index: number) => {
-  dropdownOptions.value = dropdownOptions.value.map((option, idx) => ({
+  if (dropdownOptions.value[index].disabled) {
+    return
+  }
+  dropdownOptions.value = options.map((option, idx) => ({
     ...option,
     selected: idx === index
   }))
@@ -66,6 +72,13 @@ const setSelectedOption = (index: number) => {
     name: dropdownOptions.value[index].name
   })
 }
+
+watch(
+  () => props.options,
+  (options, prevOptions) => {
+    dropdownOptions.value = getDropdownOptions(options)
+  }
+)
 </script>
 <style scoped>
 .dropdown-container {

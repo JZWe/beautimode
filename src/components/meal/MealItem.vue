@@ -3,11 +3,13 @@
     <span class="day-name">{{ dayName }}</span>
     <CustomSwitch :id="id" @on-toggle="(result) => (isDropdownVisible = result.state)" />
     <span class="supply-meal">{{ supplyMealResult }}</span>
+    <MealDropdown v-show="isDropdownVisible" :id="id" :data="data" />
   </div>
 </template>
 <script setup lang="ts">
 import { computed, toRefs, ref } from 'vue'
 import CustomSwitch from '@/components/CustomSwitch.vue'
+import MealDropdown from './MealDropdown.vue'
 
 const props = defineProps<{ id: string; data: string }>()
 const { id, data } = toRefs(props)
@@ -25,5 +27,34 @@ const supplyMealResult = computed(() => {
 .meal-item {
   display: flex;
   align-items: center;
+  padding: 36px 0;
+  min-width: 620px;
+}
+
+.meal-item:not(:last-of-type) {
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.day-name {
+  color: #3e3a39;
+  font-family:
+    Noto Sans TC,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-right: 12px;
+}
+
+.supply-meal {
+  margin-left: 5px;
+  color: #3e3a39;
+  font-family:
+    Noto Sans TC,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-left: 12px;
 }
 </style>
