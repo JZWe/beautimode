@@ -19,7 +19,7 @@
 </template>
 <script setup lang="ts">
 import CustomDropdown from '@/components/CustomDropdown.vue'
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, watchEffect } from 'vue'
 
 interface Option {
   name: string
@@ -107,6 +107,17 @@ function onEndSelectChange(result: Option) {
     }
   })
 }
+
+const emit = defineEmits<{
+  (e: 'onDropdownChange', val: { startSelect: number; endSelect: number }): void
+}>()
+
+watchEffect(() => {
+  emit('onDropdownChange', {
+    startSelect: Number(startSelect.value),
+    endSelect: Number(endSelect.value)
+  })
+})
 </script>
 <style scoped>
 .meal-dropdowns {

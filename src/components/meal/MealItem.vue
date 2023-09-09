@@ -1,9 +1,26 @@
 <template>
   <div class="meal-item">
     <span class="day-name">{{ dayName }}</span>
-    <CustomSwitch :id="id" @on-toggle="(result) => (isDropdownVisible = result.state)" />
+    <CustomSwitch
+      :id="id"
+      @on-toggle="
+        (result) => {
+          isDropdownVisible = result.state
+          if (!result.state) {
+            emit('onItemChange', { id, result: { startSelect: 0, endSelect: 0 } })
+          } else {
+            emit('onItemChange', { id, result: { startSelect: 0, endSelect: 47 } })
+          }
+        }
+      "
+    />
     <span class="supply-meal">{{ supplyMealResult }}</span>
-    <MealDropdown v-show="isDropdownVisible" :id="id" :data="data" />
+    <MealDropdown
+      v-show="isDropdownVisible"
+      :id="id"
+      :data="data"
+      @on-dropdown-change="onDataChange"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -22,6 +39,13 @@ const dayName = computed(() => {
 const supplyMealResult = computed(() => {
   return isDropdownVisible.value ? '本日供餐' : '本日不供餐'
 })
+const emit = defineEmits<{
+  (e: 'onItemChange', val: { id: string; result: { startSelect: number; endSelect: number } }): void
+}>()
+
+function onDataChange(result: { startSelect: number; endSelect: number }) {
+  emit('onItemChange', { id: id.value, result })
+}
 </script>
 <style scoped>
 .meal-item {

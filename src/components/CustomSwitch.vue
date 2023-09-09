@@ -29,7 +29,7 @@ function onClick() {
 label {
   display: inline-block;
   width: 50px;
-  height: 26px;
+  height: 24px;
   background-color: #aaa;
   border-radius: 13px;
   position: relative;
